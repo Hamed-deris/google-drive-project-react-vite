@@ -52,7 +52,6 @@ const ContextMenu = ({ children, file }) => {
           Open in new page
         </button>
         <button
-          onPointerDown={() => handleEmbed()}
           onClick={() => {
             handleMouseLeave();
             handleEmbed();
@@ -62,7 +61,7 @@ const ContextMenu = ({ children, file }) => {
           Embed
         </button>
       </div>
-      {}
+      {children}
     </div>
   );
 };

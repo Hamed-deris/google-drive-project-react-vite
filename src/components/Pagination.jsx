@@ -33,7 +33,7 @@ const Pagination = ({ allFile }) => {
   const handlePre = () => {
     if (currentPage > 1) setCurrentPage((e) => e - 1);
   };
-  //  handle nextpage
+  //  handle nextPage
   const handleNext = () => {
     if (currentPage < pages.length) setCurrentPage((e) => e + 1);
   };

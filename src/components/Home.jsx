@@ -91,12 +91,17 @@ const Home = () => {
   useEffect(() => {
     setSearchedFiles(searchedFile);
   }, [searchedFile]);
+
   // ---  --- --- --- ---  --- --- ---  ---  --- --- ---  ---  --- --- ---  ---  --- --- ---
 
   if (code === null && token === null) {
     return <SignInPage />;
   } else if (code !== null && token === null) {
-    return <div className="flex justify-center">loading...</div>;
+    return (
+      <div className="flex justify-center items-center h-screen text-gray-800">
+        Please wait is loading...
+      </div>
+    );
   } else {
     return (
       <>

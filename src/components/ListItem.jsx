@@ -83,13 +83,21 @@ const ListItem = ({ file }) => {
               </svg>
             )}
           </div>
-          <input onChange={(e) => handleInsert(e, file)} type="checkbox" />
+          <input
+            className=" w-4 h-4 "
+            onChange={(e) => handleInsert(e, file)}
+            type="checkbox"
+          />
           <img className="w-5" src={file.iconLink} />
-          <p className="text-gray-700">{file.name}</p>
+          <p className="text-gray-700 cursor-default">{file.name}</p>
         </div>
         {showChild && (
           <div ref={childRef} className="ml-4">
-            {filesChild.length === 0 && <div className="flex justify-center mb-2 mt-1  text-gray-400">nothing here</div>}
+            {filesChild.length === 0 && (
+              <div className="flex justify-center mb-2 mt-1  text-gray-400">
+                nothing here
+              </div>
+            )}
             {filesChild && <ListView currentPageItems={filesChild} />}
           </div>
         )}

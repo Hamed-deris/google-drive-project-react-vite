@@ -15,23 +15,32 @@ const ContextMenu = ({ children, file }) => {
   const handleMouseLeave = () => {
     contextRef.current.classList.add("hidden");
   };
+
   const handleShowInNewPage = () => {
-    window.open(file.webViewLink, "_blank");
+    window.open(file.webViewLink.replace("drivesdk", "view"), "_blank");
   };
-  const handleEmbed = async () => {
+
+  const handleEmbed = () => {
+    const { id } = file;
+    console.log(id);
     try {
       axios
         .post(
-          `https://www.googleapis.com/drive/v3/files/${file.id}/permissions?`,
+          `https://www.googleapis.com/drive/v3/files/${id}/permissions?`,
           {
             role: "reader",
             type: "anyone",
+            field: "role",
           },
           {
             headers: { Authorization: AUTH_TOKEN },
           }
         )
-        .then((res) => console.log(res));
+        .then((res) => {
+          console.log(res);
+        });
+      // navigator.clipboard.writeText(eventContext.webViewLink);
+      // console.log(eventContext.webViewLink);
     } catch (rej) {
       console.log(rej);
     }
@@ -43,24 +52,22 @@ const ContextMenu = ({ children, file }) => {
         className="fixed hidden z-50  bg-blue-600 p-1.5 rounded-lg"
         onMouseOut={() => handleMouseLeave()}
       >
-        <button
+        <div
           onClick={() => {
             handleShowInNewPage();
-            handleMouseLeave();
           }}
-          className=" block rounded-t-md w-full text-left px-2 py-1 text-white hover:bg-blue-700"
+          className=" cursor-default rounded-t-md w-full text-left px-2 py-1 text-white hover:bg-blue-700"
         >
           Open in new page
-        </button>
-        <button
+        </div>
+        <div
           onClick={() => {
-            handleMouseLeave();
             handleEmbed();
           }}
-          className="block rounded-b-md w-full text-left px-2 py-1 text-white hover:bg-blue-700"
+          className="cursor-default rounded-b-md w-full text-left px-2 py-1 text-white hover:bg-blue-700"
         >
-          Embed
-        </button>
+          Embed and share
+        </div>
       </div>
       {children}
     </div>

@@ -22,7 +22,8 @@ const SearchBar = () => {
           params: {
             pageSize: 100,
             q: `name contains "${searchedValue}"`,
-            fields: "nextPageToken,files(*)", //id,name,iconLink,permissionIds
+            fields:
+              "nextPageToken,files(id,name,mimeType,iconLink,webViewLink,webContentLink)", //id,name,iconLink,permissionIds
             pageToken: nextPageTokenList ? nextPageTokenList : "",
           },
         })

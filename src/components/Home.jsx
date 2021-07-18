@@ -39,11 +39,9 @@ const Home = () => {
   function handleRefreshToken() {
     if (code && token && codeResponse.refresh_token) {
       setTimeout(() => {
-        console.log("interval handle");
         handleGetRefreshToken();
       }, 60000);
     } else {
-      console.log("began timeOut refresh");
       setInterval(() => {
         handleRefreshToken();
       }, 600000);
@@ -62,7 +60,8 @@ const Home = () => {
             params: {
               pageSize: 100,
               q: `'root' in parents`,
-              fields: "nextPageToken,files(*)", //id,name,iconLink,permissionIds
+              fields:
+                "nextPageToken,files(id,name,mimeType,iconLink,webViewLink,webContentLink)", //id,name,iconLink,permissionIds
               pageToken: nextPageToken ? nextPageToken : "",
             },
           })
@@ -116,6 +115,7 @@ const Home = () => {
         >
           show context token
         </button>
+        <iframe src="" width="200px" frameBorder="0"></iframe>
       </>
     );
   }

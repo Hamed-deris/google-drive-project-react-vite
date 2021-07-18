@@ -1,5 +1,6 @@
 const me = {
-  client_id: "371111317575-fi1qadots41qmhabrlft15rd18vg8bor.apps.googleusercontent.com",
+  client_id:
+    "371111317575-fi1qadots41qmhabrlft15rd18vg8bor.apps.googleusercontent.com",
   project_id: "test-318715",
   auth_uri: "https://accounts.google.com/o/oauth2/auth",
   token_uri: "https://oauth2.googleapis.com/token",

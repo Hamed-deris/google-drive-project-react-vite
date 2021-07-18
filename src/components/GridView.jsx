@@ -14,7 +14,8 @@ const GridView = ({ currentPageItems }) => {
           <div
             key={"00" + file.id}
             onDoubleClick={() => {
-              file.mimeType === "application/vnd.google-apps.folder" && handleSelectedFolder(file);
+              file.mimeType === "application/vnd.google-apps.folder" &&
+                handleSelectedFolder(file);
             }}
           >
             <GridItem file={file} />

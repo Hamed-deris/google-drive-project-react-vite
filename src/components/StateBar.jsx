@@ -37,7 +37,7 @@ const StateBar = () => {
       >
         Insert
       </button>
-      <span className="border rounded-lg px-4 p-2 border-blue-600 text-blue-600  ">
+      <span className="border rounded-lg px-4 p-2 cursor-default border-blue-600 text-blue-600  ">
         Selected Item = {inserted.length}
       </span>
     </div>

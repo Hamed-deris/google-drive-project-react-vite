@@ -5,7 +5,9 @@ import { useHistory } from "react-router-dom";
 
 const SignOut = () => {
   const { token } = useStoreState((store) => store);
-  const { setToken, setCode, setCodeResponse } = useStoreActions((action) => action);
+  const { setToken, setCode, setCodeResponse } = useStoreActions(
+    (action) => action
+  );
   const history = useHistory();
   const handleRevoke = async () => {
     try {
@@ -29,7 +31,10 @@ const SignOut = () => {
     history.push("/");
   };
   return (
-    <button className="border rounded-lg px-4 text-white bg-blue-600 hover:bg-blue-700" onClick={() => handleSignOut()}>
+    <button
+      className="border rounded-lg px-4 text-white bg-blue-600 hover:bg-blue-700"
+      onClick={() => handleSignOut()}
+    >
       Sign Out
     </button>
   );

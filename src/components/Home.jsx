@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useStoreActions, useStoreState } from "easy-peasy";
 import React, { useEffect, useState } from "react";
-import ContextMenu from "./ContextMenu";
 import me from "./credentials";
 import Navbar from "./Navbar";
 import Pagination from "./Pagination";
@@ -81,7 +80,7 @@ const Home = () => {
   };
 
   // ---  --- --- --- ---  --- --- ---  ---  --- --- ---  ---  useEffect
-  useEffect(() => {
+  https: useEffect(() => {
     getDataApi();
   }, [token]);
 
@@ -117,7 +116,6 @@ const Home = () => {
         >
           show context token
         </button>
-        <ContextMenu />
       </>
     );
   }

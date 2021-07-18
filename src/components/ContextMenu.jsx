@@ -20,19 +20,20 @@ const ContextMenu = ({ children, file }) => {
   };
   const handleEmbed = async () => {
     try {
-      await axios
-        .get(
-          "https://www.googleapis.com/drive/v3/drives/1AlXnUi_jcw_v-NjxEjS4kM8xVDOurEuw_FmIZNjrvLI",
+      axios
+        .post(
+          `https://www.googleapis.com/drive/v3/files/${file.id}/permissions?`,
+          {
+            role: "reader",
+            type: "anyone",
+          },
           {
             headers: { Authorization: AUTH_TOKEN },
-            params: { scope: "https://www.googleapis.com/auth/drive.readonly" },
           }
         )
-        .then(async (res) => {
-          console.log(res);
-        });
-    } catch (err) {
-      console.log(err);
+        .then((res) => console.log(res));
+    } catch (rej) {
+      console.log(rej);
     }
   };
   return (

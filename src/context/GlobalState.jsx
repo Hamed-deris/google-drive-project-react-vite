@@ -8,6 +8,7 @@ export const store = createStore({
   allFile: [],
   inserted: [],
   searchedFile: [],
+  contextFile: {},
 
   // action ----------- action -----------  action -----------  action -----------
 
@@ -41,5 +42,8 @@ export const store = createStore({
   }),
   setSearchedFile: action((state, searchedFile) => {
     state.searchedFile = searchedFile;
+  }),
+  setContextFile: action((state, file) => {
+    state.contextFile = file;
   }),
 });

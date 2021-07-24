@@ -6,7 +6,6 @@ import Navbar from "./Navbar";
 import Pagination from "./Pagination";
 import SignInPage from "./SignInPage";
 const Home = () => {
-  const store = useStoreState((store) => store);
   const { token, code, codeResponse, allFile, searchedFile } = useStoreState(
     (store) => store
   );
@@ -106,16 +105,6 @@ const Home = () => {
         <Navbar />
         {searchedFile.length !== 0 && <Pagination allFile={searchedFiles} />}
         {searchedFile.length === 0 && <Pagination allFile={allFile} />}
-        <button
-          className="fixed right-5 bottom-2 px-3 border-2 rounded-lg"
-          onClick={() => {
-            handleGetRefreshToken(setToken, codeResponse);
-            console.log(store);
-          }}
-        >
-          show context token
-        </button>
-        <iframe src="" width="200px" frameBorder="0"></iframe>
       </>
     );
   }

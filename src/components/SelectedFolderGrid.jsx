@@ -7,7 +7,8 @@ import Pagination from "./Pagination";
 
 const SelectedFolderGrid = () => {
   const params = useParams();
-  const { token } = useStoreState((s) => s);
+  const [searchedFiles, setSearchedFiles] = useState([]);
+  const { token, searchedFile } = useStoreState((s) => s);
   const [state, setState] = useState([]);
   let getFiles = [];
   let nextPageTokenList = "";
@@ -40,10 +41,15 @@ const SelectedFolderGrid = () => {
   useEffect(() => {
     getDataApi();
   }, [params.folder_id]);
+
+  useEffect(() => {
+    setSearchedFiles(searchedFile);
+  }, [searchedFile]);
   return (
     <>
       <Navbar />
-      <Pagination allFile={state} />
+      {searchedFile.length === 0 && <Pagination allFile={state} />}
+      {searchedFile.length !== 0 && <Pagination allFile={searchedFiles} />}
     </>
   );
 };

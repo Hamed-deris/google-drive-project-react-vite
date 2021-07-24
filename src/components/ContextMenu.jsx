@@ -2,9 +2,9 @@ import axios from "axios";
 import { useStoreState } from "easy-peasy";
 import React, { useRef } from "react";
 
-const ContextMenu = ({ children, file }) => {
+const ContextMenu = ({ children }) => {
   const contextRef = useRef();
-  const { token } = useStoreState((s) => s);
+  const { token, contextFile } = useStoreState((s) => s);
   const AUTH_TOKEN = `Bearer ${token}`;
   const handleContextMenu = (e) => {
     e.preventDefault();
@@ -17,16 +17,14 @@ const ContextMenu = ({ children, file }) => {
   };
 
   const handleShowInNewPage = () => {
-    window.open(file.webViewLink.replace("drivesdk", "view"), "_blank");
+    window.open(contextFile.webViewLink.replace("drivesdk", "view"), "_blank");
   };
 
-  const handleEmbed = () => {
-    const { id } = file;
-    console.log(id);
+  const handleShare = () => {
     try {
       axios
         .post(
-          `https://www.googleapis.com/drive/v3/files/${id}/permissions?`,
+          `https://www.googleapis.com/drive/v3/files/${contextFile.id}/permissions?`,
           {
             role: "reader",
             type: "anyone",
@@ -37,10 +35,14 @@ const ContextMenu = ({ children, file }) => {
           }
         )
         .then((res) => {
-          console.log(res);
+          if (res.status === 200) {
+            navigator.clipboard.writeText(
+              contextFile.webViewLink.replace("drivesdk", "view")
+            );
+            console.log(contextFile.webViewLink.replace("drivesdk", "view"));
+            alert("share link is copy in your clipboard");
+          }
         });
-      // navigator.clipboard.writeText(eventContext.webViewLink);
-      // console.log(eventContext.webViewLink);
     } catch (rej) {
       console.log(rej);
     }
@@ -49,24 +51,26 @@ const ContextMenu = ({ children, file }) => {
     <div onContextMenu={(e) => handleContextMenu(e)}>
       <div
         ref={contextRef}
-        className="fixed hidden z-50  bg-blue-600 p-1.5 rounded-lg"
-        onMouseOut={() => handleMouseLeave()}
+        className="fixed hidden z-50 w-40 bg-blue-600 p-1.5 rounded-lg"
+        onMouseLeave={() => handleMouseLeave()}
       >
+        {contextFile.mimeType !== "application/vnd.google-apps.folder" && (
+          <div
+            onClick={() => {
+              handleShowInNewPage();
+            }}
+            className=" cursor-default rounded-t-md w-full text-left px-2 py-1 text-white hover:bg-blue-700"
+          >
+            Open in new tab
+          </div>
+        )}
         <div
           onClick={() => {
-            handleShowInNewPage();
-          }}
-          className=" cursor-default rounded-t-md w-full text-left px-2 py-1 text-white hover:bg-blue-700"
-        >
-          Open in new page
-        </div>
-        <div
-          onClick={() => {
-            handleEmbed();
+            handleShare();
           }}
           className="cursor-default rounded-b-md w-full text-left px-2 py-1 text-white hover:bg-blue-700"
         >
-          Embed and share
+          share
         </div>
       </div>
       {children}
